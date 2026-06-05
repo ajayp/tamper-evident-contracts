@@ -1,6 +1,6 @@
-# Contract Merkle Verification
+# Smart Contract Validation with Merkle Trees
 
-Clause-level contract comparison using Merkle tree cryptography — see exactly what changed and where.
+Clause-level contract validation using Merkle tree cryptography — the same integrity mechanism used in blockchain smart contract systems, applied to legal agreements.
 
 <img alt="Example: warranty clause change" width="725" src="https://github.com/user-attachments/assets/4ec71e8e-8749-4c1c-9e02-f90130cbfd73" />
 
@@ -10,7 +10,7 @@ Clause-level contract comparison using Merkle tree cryptography — see exactly 
 
 Paste two versions of a contract. The app hashes each clause independently, builds a Merkle tree for each version, and compares their roots. If the roots differ, it drills down to show exactly which clauses changed — without requiring you to read the full document.
 
-This demonstrates the foundation behind tamper-evident document systems: instead of storing entire contracts, you store only the Merkle root. Any modification — even a single word — produces a completely different root.
+Blockchains use Merkle trees to verify transaction integrity without storing full data on-chain. This project applies the same principle to contracts: instead of storing entire documents, you store only the Merkle root. Any modification — even a single word — produces a completely different root, making unauthorized edits immediately detectable.
 
 **Example:** Changing *"Party A will pay $500"* to *"Party A will pay $550"* flips the root hash entirely, making the edit immediately visible.
 
