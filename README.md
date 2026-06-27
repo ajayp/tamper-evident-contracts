@@ -12,16 +12,24 @@ Paste two versions of a contract. The app hashes each clause independently, buil
 
 Blockchains use Merkle trees to verify transaction integrity without storing full data on-chain. This project applies the same principle to contracts: instead of storing entire documents, you store only the Merkle root. Any modification — even a single word — produces a completely different root, making unauthorized edits immediately detectable.
 
-**Example:** Changing *"Party A will pay $500"* to *"Party A will pay $550"* flips the root hash entirely, making the edit immediately visible.
+> **Example:** Changing *"Party A will pay $500"* to *"Party A will pay $550"* flips the root hash entirely, making the edit immediately visible.
+
+---
+
+## 🎯 Key Use Cases
+
+* **Tamper-Evident Storage:** Store a single 32-byte Merkle root on a blockchain or database to permanently lock and prove the integrity of a 100-page contract.
+* **Privacy-Preserving Audits:** Prove a specific clause exists in a contract (using a Merkle proof) to a third party without revealing the rest of the sensitive agreement.
+* **Rapid Multi-Party Review:** Instantly pinpoint where unauthorized "stealth" edits were made during redlining processes without manual comparison.
 
 ---
 
 ## Features
 
-- **Root comparison** — match or mismatch detected in one hash comparison
-- **Clause-level diffing** — pinpoints which lines changed and shows both versions side by side
-- **Merkle proof generation** — verify an individual clause belongs to a contract without exposing the rest
-- **Interactive tree visualization** — see the full Merkle tree structure for each contract version
+* **Root comparison** — Match or mismatch detected instantly via a single root hash comparison.
+* **Clause-level diffing** — Pinpoints which lines changed and displays both versions side by side.
+* **Merkle proof generation** — Verify an individual clause belongs to a contract without exposing the rest.
+* **Interactive tree visualization** — See the full Merkle tree structure and hash propagation for each contract version.
 
 <img alt="Example with duplicate hash" src="https://github.com/user-attachments/assets/28cd7623-fd0e-41a8-a35c-aadef687d38a" width="725px" />
 
@@ -29,26 +37,34 @@ Blockchains use Merkle trees to verify transaction integrity without storing ful
 
 ## How It Works
 
-1. Each non-empty line is treated as a clause and hashed with SHA-256.
-2. Hashes are combined pairwise up the tree until a single root hash remains.
-3. Comparing roots tells you instantly if contracts match; if not, clause hashes are compared positionally to find the delta.
-4. A Merkle proof lets you verify a single clause against the root without revealing other clauses — useful for privacy-preserving audits.
+1. **Hash Clauses:** Each non-empty line is treated as a clause and hashed using SHA-256.
+2. **Build Tree:** Hashes are combined pairwise up the tree until a single root hash remains.
+3. **Detect Deltas:** Comparing roots tells you instantly if contracts match; if not, clause hashes are compared positionally to isolate the exact divergence.
+4. **Generate Proofs:** A Merkle proof lets you verify a single clause against the root without revealing other clauses — ideal for privacy-focused validation.
 
 ---
 
 ## Tech Stack
 
-- **Python** — core Merkle tree logic ([contractVerification.py](contractVerification.py))
-- **Streamlit** — interactive UI ([app.py](app.py))
-- **Graphviz** — tree visualization
+* **Python** — Core cryptographic Merkle tree logic ([contractVerification.py](contractVerification.py))
+* **Streamlit** — Clean, interactive user interface ([app.py](app.py))
+* **Graphviz** — Dynamic tree visualization and mapping
 
 ---
 
 ## Quick Start
 
-```bash
-pip install -r requirements.txt
-streamlit run app.py
-```
+### Prerequisites
+Ensure you have Python installed, along with [Graphviz](https://graphviz.org/download/) on your system for the tree rendering features.
 
-Browse to http://localhost:8501. Use the sidebar to load sample contract pairs or paste your own.
+### Installation
+```bash
+# Clone the repository and navigate to the project directory
+git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
+cd your-repo-name
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the application
+streamlit run app.py
